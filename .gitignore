@@ -1,0 +1,14 @@
+# 原始解包数据（太大，不需要版本控制）
+TH16 东方天空璋/
+TH17 东方鬼形兽/
+
+# Visual Studio 生成文件
+.vs/
+x64/
+Debug/
+Release/
+*.suo
+*.user
+*.db
+*.opendb
+Browse.VC.db
