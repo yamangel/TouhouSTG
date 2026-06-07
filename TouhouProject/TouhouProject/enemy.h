@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <time.h>
 
 class enemy
 {
@@ -19,4 +18,3 @@ public:
 
 void updateEnemy(std::vector<enemy>& enemies, float dt);
 void drawEnemy(const std::vector<enemy>& enemies);
-void enemysetup(std::vector<enemy>& enemies, clock_t now);

@@ -2,6 +2,7 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "enemyManager.h"
 #include <time.h>
 #include <Windows.h>
 using namespace std;
@@ -14,10 +15,12 @@ int main() {
 	player pl00(32, 48, 320.0f, 750.0f, 300.0f, 100.0f);//自机00灵梦
 	vector<Bullet> bullets;//子弹列表
 	vector<enemy> enemies;//敌人列表
+	EnemyManager enemyManager;//出怪顺序表
 
 	float shootColdown = 0;//射击冷却
 	clock_t lastTime = clock();
 	BeginBatchDraw();
+	enemyManager.init();
 	while (true) {
 		clock_t now = clock();
 		float dt = (double)(now - lastTime) / CLOCKS_PER_SEC;
@@ -25,10 +28,10 @@ int main() {
 
 		if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)break;//退出控制
 
-		enemysetup(enemies, now);//生成敌人
+		enemyManager.update(enemies, dt);//更新出怪
 		updatePlayer(pl00, dt);//更新自机
 		updateBullets(bullets, dt);//更新子弹
-		updateEnemy(enemies, dt);//更新敌人;
+		updateEnemy(enemies, dt);//更新敌人状态
 
 		shootColdown -= dt;
 		if (shootColdown <= 0)
