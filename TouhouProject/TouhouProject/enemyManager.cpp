@@ -4,11 +4,11 @@ void EnemyManager::init()
 	spawnList.clear();
 	nextIndex = 0,timer = 0;
 	gonenum = 0,gap = 0;
-	spawnList.push_back(SpawnEntry(1.0f, 1, 0, 0, 320.0f, -30.0f, 0, 150.0f, 0, 3, 0));
-	spawnList.push_back(SpawnEntry(3.0f, 3, 0, 0, 200.0f, -30.0f, 0, 160.0f, 0, 3, 120));
-	spawnList.push_back(SpawnEntry(5.0f, 5, 1, 1, 200.0f, -30.0f, 0, 140.0f, 0.5f, 3, 0));
+	spawnList.push_back(SpawnEntry(1.0f, 1, 0, 0, 310.0f, -30.0f, 0, 150.0f, 0, 5, 0));
+	spawnList.push_back(SpawnEntry(3.0f, 3, 0, 0, 200.0f, -30.0f, 0, 160.0f, 0, 5, 120));
+	spawnList.push_back(SpawnEntry(5.0f, 5, 1, 1, 150.0f, -30.0f, 0, 140.0f, 0.5f, 3, 0));
 	spawnList.push_back(SpawnEntry(7.0f, 5, 1, 1, 440.0f, -30.0f, 0, 140.0f, 0.5f, 3, 0));
-	spawnList.push_back(SpawnEntry(10.0f, 3, 0, 0, 320.0f, -30.0f, 0, 200.0f, 0.5f, 3, 400));
+	spawnList.push_back(SpawnEntry(10.0f, 3, 0, 0, 310.0f, -30.0f, 0, 200.0f, 0.5f, 5, 400));
 }
 void EnemyManager::update(std::vector<enemy>& enemies, float dt) {
 	timer += dt;

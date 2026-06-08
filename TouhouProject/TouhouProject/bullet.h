@@ -3,12 +3,14 @@
 
 class Bullet {
 public:
-	Bullet(int w, int h, float x, float y, float vx, float vy, int type) :width(w), high(h), x(x), y(y), vx(vx), vy(vy), type(type) {}
+	Bullet(int w, int h, float x, float y,
+		float vx, float vy, int type) :width(w), high(h), x(x), y(y), vx(vx), vy(vy), type(type) {}
 	bool alive = true;
 	float x, y;
 	float vx, vy;
 	int width, high;
 	int type;
+	float hitRadius = 6.0f;
 };
 void updateBullets(std::vector<Bullet>& bullets, float dt);
 void drawBullets(const std::vector<Bullet>& bullets);

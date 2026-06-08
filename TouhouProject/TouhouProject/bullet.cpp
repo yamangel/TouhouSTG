@@ -22,7 +22,9 @@ void drawBullets(const std::vector<Bullet>& bullets)
 	{
 		if (b.alive) {
 			if (b.type == 0) {
-				putimage((int)b.x - b.width / 2, (int)b.y - b.high / 2, b.width, b.high, &imgBullet00, 146, 1);
+				putimage((int)b.x - b.width / 2,
+					(int)b.y - b.high / 2,
+					b.width, b.high, &imgBullet00, 146, 1);
 			}
 		}
 	}
