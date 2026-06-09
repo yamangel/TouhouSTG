@@ -14,7 +14,8 @@ int main() {
 	int shootCount = 1;//自机子弹数量
 	float baseAngle = 0, spreadAngle = 10;//自机多子弹偏移角度
 	player pl00(32, 48, 320.0f, 750.0f, 300.0f, 100.0f, 5);//自机00灵梦
-	vector<Bullet> bullets;//子弹列表
+	vector<Bullet> bullets;//自弹列表
+	vector<Bullet> enemyBullets;//敌弹列表
 	vector<enemy> enemies;//敌人列表
 	EnemyManager enemyManager;//出怪顺序表
 	float shootColdown = 0;//射击冷却
@@ -30,18 +31,20 @@ int main() {
 
 		enemyManager.update(enemies, dt);//更新出怪
 		updatePlayer(pl00, dt);//更新自机
-		updateBullets(bullets, dt);//更新子弹
-		updateEnemy(enemies, dt);//更新敌人状态
+		updateBullets(bullets, dt);//更新自弹
+		updateBullets(enemyBullets, dt);//更新敌弹
+		updateEnemy(enemies, enemyBullets, pl00.x, pl00.y, dt);//更新敌人状态
 		shootColdown -= dt;//实现有冷却的基础自动射击
 		if (shootColdown <= 0)
 		{
 			shoot(bullets, 12, 55, pl00.x, pl00.y - pl00.high / 2.0f, shootCount, baseAngle, spreadAngle, 350.0f, 0);//发射基础子弹
 			shootColdown = 0.12f;
 		}
-		checkCollisions(pl00,bullets,enemies);//检测碰撞
+		checkCollisions(pl00,bullets,enemies,enemyBullets);//检测碰撞
 
 		cleardevice();//清屏
-		drawBullets(bullets);//绘制子弹
+		drawBullets(bullets);//绘制自弹
+		drawBullets(enemyBullets);//绘制敌弹
 		drawEnemy(enemies);//绘制敌人	
 		drawPlayer(pl00);//绘制自机
 		FlushBatchDraw();//刷新绘制，防闪屏

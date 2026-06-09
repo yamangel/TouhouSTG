@@ -7,7 +7,8 @@ bool circleHit(float x1, float y1, float r1, float x2, float y2, float r2)
     return dx * dx + dy * dy <= rSum * rSum; 
 }
 
-void checkCollisions(player& player, std::vector<Bullet>& bullets, std::vector<enemy>& enemies)
+void checkCollisions(player& player, std::vector<Bullet>& bullets,
+    std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets)
 {
     for (auto& e : enemies)// 自机 vs 敌机
     {
@@ -19,7 +20,7 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets, std::vector<e
             player.invincibleTimer = 1.5f;
         }
     }
-    for (auto& b : bullets)// 自机 vs 子弹//不完善，没区分敌我子弹
+    for (auto& b : enemyBullets)// 自机 vs 子弹
     {
         if (player.invincibleTimer > 0) continue;
         if (circleHit(player.x, player.y, player.hitRadius,

@@ -5,6 +5,7 @@ IMAGE imgPlayer00;
 IMAGE imgBullet00;
 IMAGE imgEnemy00;
 IMAGE imgEnemy00Flipped;
+IMAGE imgEnemyBullet;
 
 void loadResources()
 {
@@ -12,4 +13,5 @@ void loadResources()
 	loadimage(&imgBullet00, _T("ANM/player/pl00/pl00a.png"));
 	loadimage(&imgEnemy00, _T("ANM/enemy/enemy.png"));
 	loadimage(&imgEnemy00Flipped, _T("ANM/enemy/enemyFlip.png"));
+	loadimage(&imgEnemyBullet, _T("ANM/bullet/bullet1.png"));
 }

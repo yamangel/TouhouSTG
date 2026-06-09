@@ -1,7 +1,8 @@
 #include"enemy.h"
 #include "resource.h"
+#include "bullet.h"
 #include <cmath>
-void updateEnemy(std::vector<enemy>& enemies, float dt)
+void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets, float playerX, float playerY, float dt)
 {
 	for (auto& e : enemies)
 	{
@@ -26,6 +27,24 @@ void updateEnemy(std::vector<enemy>& enemies, float dt)
 			{
 				e.frame = e.frame % 12;
 				if (e.frame < 8) e.frame = 8;
+			}
+		}
+
+		if (e.pattern.patternType >= 0) {
+			e.shootTimer -= dt;
+			if (e.shootTimer <= 0) 
+			{
+				float dx = playerX - e.x;
+				float dy = playerY - e.y;
+				float len = sqrt(dx * dx + dy * dy);
+				float vx = dx / len * e.pattern.speed;
+				float vy = dy / len * e.pattern.speed;
+
+				for (int i = 0; i < e.pattern.bulletCount; i++) {
+					enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH,
+						e.x, e.y, vx, vy, e.pattern.bulletType));
+				}
+				e.shootTimer = e.pattern.interval;
 			}
 		}
 

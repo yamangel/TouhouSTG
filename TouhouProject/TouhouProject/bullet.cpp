@@ -26,6 +26,11 @@ void drawBullets(const std::vector<Bullet>& bullets)
 					(int)b.y - b.high / 2,
 					b.width, b.high, &imgBullet00, 146, 1);
 			}
+			if (b.type == 1) {
+				putimage((int)b.x - b.width / 2,
+					(int)b.y - b.high / 2,
+					b.width, b.high, &imgEnemyBullet, 84, 65);
+			}
 		}
 	}
 }

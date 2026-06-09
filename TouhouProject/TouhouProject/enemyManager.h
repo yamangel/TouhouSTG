@@ -13,10 +13,11 @@ struct  SpawnEntry
 	float interval;
 	int hp;
 	float spread;
+	BulletPattern pattern;
 	SpawnEntry(float time, int enemyNum, int type, int movePattern, 
-		float x, float y, float vx, float vy, float interval, int hp, float spread) :
+		float x, float y, float vx, float vy, float interval, int hp, float spread,BulletPattern pattern) :
 		time(time), enemyNum(enemyNum), type(type), movePattern(movePattern),
-		x(x), y(y), vx(vx), vy(vy), interval(interval), hp(hp), spread(spread) {
+		x(x), y(y), vx(vx), vy(vy), interval(interval), hp(hp), spread(spread), pattern(pattern) {
 	}
 };
 class EnemyManager
