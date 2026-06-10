@@ -41,7 +41,7 @@ void shoot(std::vector<Bullet>& bullets, int width, int high, float x, float y, 
 	for (int i = 1; i < (count + 1) / 2; i++)
 	{
 		float rad = (baseAngle + i * spreadAngle) * 3.14159265f / 180.0f;
-		float vx = speed * sin(rad), vy = -speed * cos(rad);
+		float vx = speed * cos(rad), vy = -speed * sin(rad);
 		bullets.push_back(Bullet(width, high, x, y, vx, vy, type));
 		bullets.push_back(Bullet(width, high, x, y, -vx, vy, type));
 	}

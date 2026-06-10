@@ -29,20 +29,49 @@ void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,
 				if (e.frame < 8) e.frame = 8;
 			}
 		}
+		//else if()//更多机型，例如悬挂出来的精英怪
+
 
 		if (e.pattern.patternType >= 0) {
 			e.shootTimer -= dt;
-			if (e.shootTimer <= 0) 
+			if (e.shootTimer <= 0)
 			{
 				float dx = playerX - e.x;
 				float dy = playerY - e.y;
 				float len = sqrt(dx * dx + dy * dy);
 				float vx = dx / len * e.pattern.speed;
-				float vy = dy / len * e.pattern.speed;
-
-				for (int i = 0; i < e.pattern.bulletCount; i++) {
-					enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH,
-						e.x, e.y, vx, vy, e.pattern.bulletType));
+				float vy = dy / len * e.pattern.speed;//按比例分配速度，使斜向总速度控制为speed
+				if (e.pattern.patternType == 0) //自机狙
+				{
+					for (int i = 0; i < e.pattern.bulletCount; i++) {
+						enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH,
+							e.x, e.y, vx, vy, e.pattern.bulletType));
+					}
+				}
+				if (e.pattern.patternType == 1)//扇形狙
+				{
+					double baseAngle = atan2(vy, vx);
+					enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH, e.x, e.y, vx, vy, e.pattern.bulletType));
+					for (int i = 1; i < (e.pattern.bulletCount + 1) / 2; i++)
+					{
+						float offset = (i * e.pattern.spreadAngle) * 3.14159265f / 180.0f;
+						float radleft = (baseAngle + offset);
+						float radright = (baseAngle - offset);
+						float vxleft = e.pattern.speed * cos(radleft), vyleft = e.pattern.speed * sin(radleft);
+						float vxright = e.pattern.speed * cos(radright), vyright = e.pattern.speed * sin(radright);
+						enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH, e.x, e.y, vxleft, vyleft, e.pattern.bulletType));
+						enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH, e.x, e.y, vxright, vyright, e.pattern.bulletType));
+					}
+				}
+				if (e.pattern.patternType == 2)//圆形狙
+				{
+					for (int i = 0; i < e.pattern.bulletCount; i++)
+					{
+						float rad = i * e.pattern.spreadAngle * 3.14159265f / 180.0f;
+						float vx = e.pattern.speed * cos(rad);
+						float vy = e.pattern.speed * sin(rad);
+						enemyBullets.push_back(Bullet(e.pattern.bulletW, e.pattern.bulletH, e.x, e.y, vx, vy, e.pattern.bulletType));;
+					}
 				}
 				e.shootTimer = e.pattern.interval;
 			}
@@ -66,13 +95,13 @@ void drawEnemy(const std::vector<enemy>& enemies)//32,30,0,320
 		if (e.alive == true)
 		{
 			if (e.x <= 320)//左半用标准图
-				putimage((int)e.x - e.width / 2, 
-				(int)e.y - e.high / 2,
-				e.width, e.high, &imgEnemy00, e.frame * 32, 320 + e.type * 32);
+				putimage((int)e.x - e.width / 2,
+					(int)e.y - e.high / 2,
+					e.width, e.high, &imgEnemy00, e.frame * 32, 320 + e.type * 32);
 			else//右半用镜像图
 				putimage((int)e.x - e.width / 2,
-				(int)e.y - e.high / 2,
-				e.width, e.high, &imgEnemy00Flipped, e.frame * 32, 320 + e.type * 32);
+					(int)e.y - e.high / 2,
+					e.width, e.high, &imgEnemy00Flipped, e.frame * 32, 320 + e.type * 32);
 		}
 	}
 }

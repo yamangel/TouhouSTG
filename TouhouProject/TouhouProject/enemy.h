@@ -4,7 +4,7 @@
 
 struct BulletPattern //弹幕类型
 {
-	int patternType;//0为单发，1为圆形，2为扇形
+	int patternType;//0为单发，1为扇形，2为圆形
 	int bulletCount;//每一波弹幕数量
 	float speed;//速度
 	float interval;//两波之间的间隔
