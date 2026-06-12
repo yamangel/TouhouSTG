@@ -25,6 +25,7 @@ int main() {
 	loadResources();//加载资源
 	bool ontext = false;
 	bool gameJustStarted = true;//判断是否需要重置游戏
+	int score = 0;//得分
 	enum GameScene { SCENE_TITLE, SCENE_GAME, SCENE_GAMEOVER };
 	GameScene currentScene = SCENE_TITLE;
 
@@ -99,6 +100,8 @@ int main() {
 				enemyManager.init();
 				shootColdown = 0;
 				gameJustStarted = false;
+				score = 0;
+				pl00.power = 1.0f;
 			}
 			lastTime = clock();//重置时间基准
 			enemyManager.update(enemies, dt);//更新出怪
@@ -116,7 +119,7 @@ int main() {
 				shootColdown = 0.18f;
 			}
 
-			checkCollisions(pl00, bullets, enemies, enemyBullets);//检测碰撞
+			checkCollisions(pl00, bullets, enemies, enemyBullets,score,pl00.power);//检测碰撞
 
 			drawBackground(stage01a);//绘制背景
 			//drawBackground(stage01d);//绘制云
@@ -125,6 +128,15 @@ int main() {
 			drawEnemy(enemies);//绘制敌人	
 			drawPlayer(pl00);//绘制自机
 			drawplayerCollisions(pl00,enemyBullets);//绘制自机碰撞箱
+			if (GetAsyncKeyState('X') & 0x8000)
+			{
+				if (pl00.power >= 1.0f)
+				{
+					// 清空半径50内的敌弹（你不是已经写了 drawplayerCollisions 嘛，可以复用那个距离判断）
+					pl00.invincibleTimer = 2.0f;
+					pl00.power -= 1.0f;
+				}
+			}
 			if (pl00.hp <= 0) 
 			{
 				currentScene = SCENE_GAMEOVER;

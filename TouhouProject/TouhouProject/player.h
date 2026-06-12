@@ -15,6 +15,8 @@ public:
 	float frameTimer = 0.0f;//动画帧计时器
 	float hitRadius = 6.0f;//碰撞箱半径
 	float invincibleTimer = 0;//剩余无敌时间
+	float power = 1.0f;//灵力值
+	float maxPower = 4.0f;//灵力上限
 };
 void updatePlayer(player& p, float dt);
 void drawPlayer(const player& p);

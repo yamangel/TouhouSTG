@@ -4,4 +4,4 @@
 #include "player.h"
 
 void checkCollisions(player& player, std::vector<Bullet>& bullets,
-	std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets);
+	std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,int& score, float& power);
