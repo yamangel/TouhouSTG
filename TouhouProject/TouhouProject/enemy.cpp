@@ -34,7 +34,7 @@ void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,
 
 		if (e.pattern.patternType >= 0) {
 			e.shootTimer -= dt;
-			if (e.shootTimer <= 0)
+			if ((e.shootTimer <= 0) && (e.y < playerY))
 			{
 				float dx = playerX - e.x;
 				float dy = playerY - e.y;
@@ -95,13 +95,23 @@ void drawEnemy(const std::vector<enemy>& enemies)//32,30,0,320
 		if (e.alive == true)
 		{
 			if (e.x <= 320)//×ó°ëÓÃ±ê×¼Í¼
+			{
 				putimage((int)e.x - e.width / 2,
 					(int)e.y - e.high / 2,
-					e.width, e.high, &imgEnemy00, e.frame * 32, 320 + e.type * 32);
+					e.width, e.high, &imgEnemy00white, e.frame * 32, 320 + e.type * 32, NOTSRCERASE);
+				putimage((int)e.x - e.width / 2,
+					(int)e.y - e.high / 2,
+					e.width, e.high, &imgEnemy00, e.frame * 32, 320 + e.type * 32, SRCINVERT);
+			}
 			else//ÓÒ°ëÓÃ¾µÏñÍ¼
+			{
 				putimage((int)e.x - e.width / 2,
 					(int)e.y - e.high / 2,
-					e.width, e.high, &imgEnemy00Flipped, e.frame * 32, 320 + e.type * 32);
+					e.width, e.high, &imgEnemy00Flippedwhite, e.frame * 32, 320 + e.type * 32, NOTSRCERASE);
+				putimage((int)e.x - e.width / 2,
+					(int)e.y - e.high / 2,
+					e.width, e.high, &imgEnemy00Flipped, e.frame * 32, 320 + e.type * 32, SRCINVERT);
+			}
 		}
 	}
 }

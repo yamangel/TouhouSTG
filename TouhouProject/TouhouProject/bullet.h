@@ -10,7 +10,7 @@ public:
 	float vx, vy;
 	int width, high;
 	int type;
-	float hitRadius = 6.0f;
+	float hitRadius = 8.0f;
 };
 void updateBullets(std::vector<Bullet>& bullets, float dt);
 void drawBullets(const std::vector<Bullet>& bullets);

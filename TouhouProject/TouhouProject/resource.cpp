@@ -1,26 +1,52 @@
 #include "resource.h"
 #include <graphics.h>
 
+IMAGE title_bk00;
+IMAGE title_ch00;
+IMAGE title_ch00white;
+IMAGE title_logo;
+IMAGE title_logowhite;
+IMAGE title_item00;
+IMAGE title_item00white;
+IMAGE cloud;
 IMAGE imgPlayer00;
+IMAGE imgPlayer00white;
 IMAGE imgBullet00;
+IMAGE imgBullet00white;
 IMAGE imgEnemy00;
+IMAGE imgEnemy00white;
 IMAGE imgEnemy00Flipped;
+IMAGE imgEnemy00Flippedwhite;
 IMAGE imgEnemyBullet;
+IMAGE imgEnemyBulletwhite;
 const wchar_t* stage01aPath;
 const wchar_t* stage01bPath;
 const wchar_t* stage01cPath;
-const wchar_t* stage01dPath;
-const wchar_t* stage01ePath;
+const wchar_t* stage01dblackPath;
+const wchar_t* ending_bg00Path;
 void loadResources()
 {
+	loadimage(&title_bk00, _T("ANM/title/title_bk00.png"));
+	loadimage(&title_ch00, _T("ANM/title/title_ch00.png"));
+	loadimage(&title_ch00white, _T("ANM/title/title_ch00white.png"));
+	loadimage(&title_logo, _T("ANM/title/title_logo.png"));
+	loadimage(&title_logowhite, _T("ANM/title/title_logowhite.png"));
+	loadimage(&title_item00, _T("ANM/title/title_item00.png"));
+	loadimage(&title_item00white, _T("ANM/title/title_item00white.png"));
+	loadimage(&cloud, _T("ANM/background/stage01/st01dwhite.png"));
 	loadimage(&imgPlayer00, _T("ANM/player/pl00/pl00.png"));
+	loadimage(&imgPlayer00white, _T("ANM/player/pl00/pl00white.png"));
 	loadimage(&imgBullet00, _T("ANM/player/pl00/pl00a.png"));
+	loadimage(&imgBullet00white, _T("ANM/player/pl00/pl00awhite.png"));
 	loadimage(&imgEnemy00, _T("ANM/enemy/enemy.png"));
+	loadimage(&imgEnemy00white, _T("ANM/enemy/enemywhite.png"));
 	loadimage(&imgEnemy00Flipped, _T("ANM/enemy/enemyFlip.png"));
+	loadimage(&imgEnemy00Flippedwhite, _T("ANM/enemy/enemyFlipwhite.png"));
 	loadimage(&imgEnemyBullet, _T("ANM/bullet/bullet1.png"));
+	loadimage(&imgEnemyBulletwhite, _T("ANM/bullet/bullet1white.png"));
 	stage01aPath = L"ANM/background/stage01/st01a.png";
 	stage01bPath = L"ANM/background/stage01/st01b.png";
 	stage01cPath = L"ANM/background/stage01/st01c.png";
-	stage01dPath = L"ANM/background/stage01/st01d.png";
-	stage01ePath = L"ANM/background/stage01/st01e.png";
+	stage01dblackPath = L"ANM/background/stage01/st01dblack.png";
+	ending_bg00Path = L"ANM/ending/stbg00.png";
 }

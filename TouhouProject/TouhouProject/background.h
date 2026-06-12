@@ -3,10 +3,12 @@
 
 struct Background {
     IMAGE img;      // 背景图
-    float y[2];     // 两张图的 Y 坐标
+    int srcW, srcH; // 原图长宽
+    float y[3];     // 图的 Y 坐标
     float speed;    // 滚动速度（像素/秒）
+    int type;       // 0背景1云
 };
 
-void initBackground(Background& bg, const wchar_t* path, float speed);
+void initBackground(Background& bg, const wchar_t* path, float speed,int t);
 void updateBackground(Background& bg, float dt);
-void drawBackground(const Background& bg);
+void drawBackground( Background& bg);

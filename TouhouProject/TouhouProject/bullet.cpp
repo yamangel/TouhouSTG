@@ -21,15 +21,23 @@ void drawBullets(const std::vector<Bullet>& bullets)
 	for (const Bullet& b : bullets)
 	{
 		if (b.alive) {
-			if (b.type == 0) {
+			if (b.type == 0)//ÁéÃÎ»ù´¡µ¯
+			{
 				putimage((int)b.x - b.width / 2,
 					(int)b.y - b.high / 2,
-					b.width, b.high, &imgBullet00, 146, 1);
+					b.width, b.high, &imgBullet00white, 146, 1, NOTSRCERASE);
+				putimage((int)b.x - b.width / 2,
+					(int)b.y - b.high / 2,
+					b.width, b.high, &imgBullet00, 146, 1, SRCINVERT);
 			}
-			if (b.type == 1) {
+			if (b.type == 1) //Ð¡¹Ö×Óµ¯
+			{
 				putimage((int)b.x - b.width / 2,
 					(int)b.y - b.high / 2,
-					b.width, b.high, &imgEnemyBullet, 84, 65);
+					b.width, b.high, &imgEnemyBulletwhite, 80, 48, NOTSRCERASE);
+				putimage((int)b.x - b.width / 2,
+					(int)b.y - b.high / 2,
+					b.width, b.high, &imgEnemyBullet, 80, 48, SRCINVERT);
 			}
 		}
 	}

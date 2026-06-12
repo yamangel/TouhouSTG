@@ -1,9 +1,9 @@
-#include "Player.h"
+#include "player.h"
 #include "resource.h"
+#include "bullet.h"
 #include <Windows.h>
 
 void updatePlayer(player& p, float dt) {
-	if (p.hp <= 0) return;
 	float speed = (GetAsyncKeyState(VK_SHIFT) & 0x8000) ? p.slowspeed : p.speed;
 	bool left = GetAsyncKeyState(VK_LEFT) & 0x8000;
 	bool right = GetAsyncKeyState(VK_RIGHT) & 0x8000;
@@ -24,6 +24,7 @@ void updatePlayer(player& p, float dt) {
 		if (p.facing != 0) p.frame = 0;
 		p.facing = 0;
 	}
+
 	if (p.invincibleTimer > 0) p.invincibleTimer -= dt;//无敌时间
 	p.frameTimer += dt;//动画帧切换
 	if (p.frameTimer > 0.1f)
@@ -42,12 +43,23 @@ void updatePlayer(player& p, float dt) {
 }
 void drawPlayer(const player& p)
 {
-	if (p.hp <= 0)
-	{
-		outtextxy(300, 250, L"GAME OVER");
-		return;
-	}
 	putimage((int)p.x - p.width / 2,
 		(int)p.y - p.high / 2,
-		p.width, p.high, &imgPlayer00, p.frame * p.width, p.facing * p.high);
+		p.width, p.high, &imgPlayer00white, p.frame * p.width, p.facing * p.high, NOTSRCERASE);
+	putimage((int)p.x - p.width / 2,
+		(int)p.y - p.high / 2,
+		p.width, p.high, &imgPlayer00, p.frame * p.width, p.facing * p.high, SRCINVERT);
+}
+void drawplayerCollisions(player& player, std::vector<Bullet>& enemyBullets)
+{
+	for (auto& b : enemyBullets)
+	{
+		float inX = fabs(player.x - b.x);
+		float inY = fabs(player.y - b.y);
+		if (inX < 28 || inY < 33)
+		{
+			putimage(player.x - b.width / 2 + 1, player.y - b.high / 2 + 1, b.width, b.high, &imgEnemyBulletwhite, 82, 242, NOTSRCERASE);
+			putimage(player.x - b.width / 2 + 1, player.y - b.high / 2 + 1, b.width, b.high, &imgEnemyBullet, 82, 242, SRCINVERT);
+		}
+	}
 }

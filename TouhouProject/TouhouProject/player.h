@@ -1,4 +1,6 @@
 #pragma once
+#include "bullet.h"
+#include <vector>
 class player
 {
 public:
@@ -11,8 +13,9 @@ public:
 	int facing = 0;//方向
 	int frame = 0;//动画帧
 	float frameTimer = 0.0f;//动画帧计时器
-	float hitRadius = 3.0f;//碰撞箱半径
+	float hitRadius = 6.0f;//碰撞箱半径
 	float invincibleTimer = 0;//剩余无敌时间
 };
 void updatePlayer(player& p, float dt);
 void drawPlayer(const player& p);
+void drawplayerCollisions(player& player, std::vector<Bullet>& enemyBullets);
