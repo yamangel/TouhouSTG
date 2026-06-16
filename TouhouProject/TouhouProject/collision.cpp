@@ -8,7 +8,8 @@ bool circleHit(float x1, float y1, float r1, float x2, float y2, float r2)
 }
 
 void checkCollisions(player& player, std::vector<Bullet>& bullets,
-	std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets, int& score, float& power)
+	std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets, std::vector<PowerItem>& items,
+	int& score)
 {
 	for (auto& e : enemies)// 自机 vs 敌机
 	{
@@ -40,14 +41,13 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets,
 			{
 				b.alive = false;
 				e.hp--;
-				if (e.hp <= 0) 
-				{ 
+				if (e.hp <= 0)
+				{
 					score += e.scoreValue;
-					if (rand() % 100 < 60)
+					if (rand() % 100 < 80)
 					{
 						float drop = (rand() % 3 + 1) * 0.1f;  // 0.1, 0.2, 0.3
-						power += drop;
-						if (power > 4.0f) power = 4.0f;          // 不超上限
+						items.push_back(PowerItem(12, 12, e.x, e.y, drop));
 					}
 				}
 			}

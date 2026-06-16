@@ -19,7 +19,8 @@ extern IMAGE imgEnemy00Flipped;
 extern IMAGE imgEnemy00Flippedwhite;
 extern IMAGE imgEnemyBullet;
 extern IMAGE imgEnemyBulletwhite;
-
+extern IMAGE item_;
+extern IMAGE item_white;
 extern  const wchar_t* stage01aPath;
 extern  const wchar_t* stage01bPath;
 extern  const wchar_t* stage01cPath;

@@ -19,6 +19,8 @@ IMAGE imgEnemy00Flipped;
 IMAGE imgEnemy00Flippedwhite;
 IMAGE imgEnemyBullet;
 IMAGE imgEnemyBulletwhite;
+IMAGE item_;
+IMAGE item_white;
 const wchar_t* stage01aPath;
 const wchar_t* stage01bPath;
 const wchar_t* stage01cPath;
@@ -44,6 +46,8 @@ void loadResources()
 	loadimage(&imgEnemy00Flippedwhite, _T("ANM/enemy/enemyFlipwhite.png"));
 	loadimage(&imgEnemyBullet, _T("ANM/bullet/bullet1.png"));
 	loadimage(&imgEnemyBulletwhite, _T("ANM/bullet/bullet1white.png"));
+	loadimage(&item_, _T("ANM/bullet/item.png"));
+	loadimage(&item_white, _T("ANM/bullet/item_white.png"));
 	stage01aPath = L"ANM/background/stage01/st01a.png";
 	stage01bPath = L"ANM/background/stage01/st01b.png";
 	stage01cPath = L"ANM/background/stage01/st01c.png";

@@ -1,6 +1,5 @@
 #pragma once
 #include "bullet.h"
-#include <vector>
 
 struct BulletPattern //µ¯Ä»ÀàĞÍ
 {

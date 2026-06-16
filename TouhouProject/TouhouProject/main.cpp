@@ -5,6 +5,7 @@
 #include "enemyManager.h"
 #include "collision.h"
 #include "background.h"
+#include "item.h"
 #include <time.h>
 #include <Windows.h>
 using namespace std;
@@ -21,6 +22,7 @@ void title_start()
 }
 
 int main() {
+	srand((unsigned)time(0));//随机化
 	initgraph(1280, 960);//创建窗口640//记得要更新窗口大小ui布局
 	loadResources();//加载资源
 	bool ontext = false;
@@ -45,6 +47,7 @@ int main() {
 	vector<Bullet> enemyBullets;//敌弹列表
 	vector<enemy> enemies;//敌人列表
 	EnemyManager enemyManager;//出怪顺序表
+	vector<PowerItem> items;//掉落物列表
 	BeginBatchDraw();
 	enemyManager.init();
 
@@ -102,6 +105,7 @@ int main() {
 				gameJustStarted = false;
 				score = 0;
 				pl00.power = 1.0f;
+				items.clear();
 			}
 			lastTime = clock();//重置时间基准
 			enemyManager.update(enemies, dt);//更新出怪
@@ -111,6 +115,7 @@ int main() {
 			updateBullets(bullets, dt);//更新自弹
 			updateBullets(enemyBullets, dt);//更新敌弹
 			updateEnemy(enemies, enemyBullets, pl00.x, pl00.y, dt);//更新敌人状态
+			updateItems(items, pl00,dt);//更新掉落物
 
 			shootColdown -= dt;//实现有冷却的基础自动射击
 			if (shootColdown <= 0)
@@ -119,20 +124,27 @@ int main() {
 				shootColdown = 0.18f;
 			}
 
-			checkCollisions(pl00, bullets, enemies, enemyBullets,score,pl00.power);//检测碰撞
+			checkCollisions(pl00, bullets, enemies, enemyBullets,items,score);//检测碰撞
 
 			drawBackground(stage01a);//绘制背景
 			//drawBackground(stage01d);//绘制云
 			drawBullets(bullets);//绘制自弹
 			drawBullets(enemyBullets);//绘制敌弹
-			drawEnemy(enemies);//绘制敌人	
+			drawEnemy(enemies);//绘制敌人
+			drawItems(items);//绘制掉落物
 			drawPlayer(pl00);//绘制自机
 			drawplayerCollisions(pl00,enemyBullets);//绘制自机碰撞箱
 			if (GetAsyncKeyState('X') & 0x8000)
 			{
 				if (pl00.power >= 1.0f)
 				{
-					// 清空半径50内的敌弹（你不是已经写了 drawplayerCollisions 嘛，可以复用那个距离判断）
+					for (auto& b : enemyBullets)
+					{
+						float dx = pl00.x - b.x;
+						float dy = pl00.y - b.y;
+						if (dx * dx + dy * dy <= 100.0f * 100.0f)
+							b.alive = false;
+					}
 					pl00.invincibleTimer = 2.0f;
 					pl00.power -= 1.0f;
 				}

@@ -1,6 +1,5 @@
 #pragma once
-#include <vector>
-#include "Enemy.h"
+#include "enemy.h"
 
 struct  SpawnEntry
 {
