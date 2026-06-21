@@ -15,5 +15,6 @@ void initBackground(Background& bg, const wchar_t* path, float speed,int t);
 void updateBackground(Background& bg, float dt);
 void drawBackground( Background& bg);
 void drawUI(int score,player& player);
-void drawNumber(int num, int x, int y);
+void drawFloat(float num, int x, int y);
 void drawText(const wchar_t* text, int x, int y);
+void drawHp(player& player);

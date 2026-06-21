@@ -6,6 +6,7 @@
 #include "collision.h"
 #include "background.h"
 #include "item.h"
+#include "Sound.h"
 #include <time.h>
 #include <Windows.h>
 using namespace std;
@@ -25,9 +26,12 @@ int main() {
 	srand((unsigned)time(0));//随机化
 	initgraph(1280, 960);//创建窗口
 	loadResources();//加载资源
+	initSounds();
 	bool ontext = false;
 	bool gameJustStarted = true;//判断是否需要重置游戏
 	int score = 0;//得分
+	static int Select = 0;
+	float soundColdown = 0;
 	enum GameScene { SCENE_TITLE, SCENE_GAME, SCENE_GAMEOVER };
 	GameScene currentScene = SCENE_TITLE;
 
@@ -40,7 +44,7 @@ int main() {
 
 	int shootCount = 1;//自机子弹数量
 	float baseAngle = 0, spreadAngle = 10;//自机多子弹偏移角度
-	player pl00(32, 48, 480.0f, 750.0f, 300.0f, 100.0f, 5);//自机00灵梦
+	player pl00(32, 48, 480.0f, 750.0f, 300.0f, 100.0f, 7);//自机00灵梦
 	float shootColdown = 0;//射击冷却
 	vector<Bullet> bullets;//自弹列表
 
@@ -61,6 +65,7 @@ int main() {
 		switch (currentScene)
 		{
 		case SCENE_TITLE:
+			{ static int once = 0; if (!once) { playBGM(L"bgm_title.wav", 600); once = 1; } }
 			title_start();
 			if (MouseHit() || ontext)
 			{
@@ -75,16 +80,23 @@ int main() {
 						putimage(800, 440, 350, 40, &title_item00white, 0, 0, NOTSRCERASE);
 						putimage(800, 440, 350, 40, &title_item00, 0, 0, SRCINVERT);
 						ontext = true;
+						if (Select ==0)
+						{
+							playSE(SND_SELECT, 400);
+							Select = 1;
+						}
 					}
 					break;
 				case WM_LBUTTONDOWN:
 					if (inside)
 					{
 						currentScene = SCENE_GAME;
+						playSE(SND_OK, 500);
 					}
 					break;
 				default:
 					ontext = false;
+					Select = 0;
 					break;
 				}
 			}
@@ -93,7 +105,7 @@ int main() {
 		case SCENE_GAME:
 			if (gameJustStarted)
 			{
-				pl00.hp = 5;
+				pl00.hp = 7;
 				pl00.x = 416;
 				pl00.y = 750;
 				pl00.invincibleTimer = 0;
@@ -106,6 +118,7 @@ int main() {
 				score = 0;
 				pl00.power = 1.0f;
 				items.clear();
+				playBGM(L"bgm_stage1.wav", 600);
 			}
 			lastTime = clock();//重置时间基准
 			enemyManager.update(enemies, dt);//更新出怪
@@ -121,8 +134,14 @@ int main() {
 			if (shootColdown <= 0)
 			{
 				shoot(bullets, 12, 55, pl00.x, pl00.y - pl00.high / 2.0f, shootCount, baseAngle, spreadAngle, 350.0f, 0);//发射基础子弹
+				if (soundColdown <= 0)
+				{
+					playSE(SND_SHOOT, 200);
+					soundColdown = 0.5f;  // 每 0.5 秒才播一次射击音
+				}
 				shootColdown = 0.18f;
 			}
+			soundColdown -= dt;
 
 			checkCollisions(pl00, bullets, enemies, enemyBullets, items, score);//检测碰撞
 
@@ -137,27 +156,30 @@ int main() {
 			drawplayerCollisions(pl00, enemyBullets);//绘制自机碰撞箱
 			if (GetAsyncKeyState('X') & 0x8000)
 			{
-				if (pl00.power >= 1.0f)
+				if ((pl00.power >= 1.0f) &&( pl00.invincibleTimer<=0))
 				{
 					for (auto& b : enemyBullets)
 					{
 						float dx = pl00.x - b.x;
 						float dy = pl00.y - b.y;
-						if (dx * dx + dy * dy <= 100.0f * 100.0f)
+						if (dx * dx + dy * dy <= 200.0f * 200.0f)
 							b.alive = false;
 					}
 					pl00.invincibleTimer = 2.0f;
 					pl00.power -= 1.0f;
+					playSE(SND_BOMB, 800);
 				}
 			}
 			if (pl00.hp <= 0)
 			{
 				currentScene = SCENE_GAMEOVER;
 				gameJustStarted = true;
+				playSE(SND_DEAD, 700);
 			}
 			break;
 
 		case SCENE_GAMEOVER:
+			stopBGM();
 			lastTime = clock();//重置时间基准
 			updateBackground(ending_bk00, dt);
 			drawBackground(ending_bk00);

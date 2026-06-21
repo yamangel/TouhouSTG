@@ -29,6 +29,14 @@ const wchar_t* stage01bPath;
 const wchar_t* stage01cPath;
 const wchar_t* stage01dblackPath;
 const wchar_t* ending_bg00Path;
+const wchar_t* seTan00Path;
+const wchar_t* seEnep00Path;
+const wchar_t* seDamage00Path;
+const wchar_t* seCardgetPath;
+const wchar_t* seItem00Path;
+const wchar_t* seOk00Path;
+const wchar_t* sePldead00Path;
+const wchar_t* sechangeitemPath;
 void loadResources()
 {
 	loadimage(&ascii_1280, _T("ANM/ascii/ascii_1280.png"));
@@ -60,4 +68,12 @@ void loadResources()
 	stage01cPath = L"ANM/background/stage01/st01c.png";
 	stage01dblackPath = L"ANM/background/stage01/st01dblack.png";
 	ending_bg00Path = L"ANM/ending/stbg00.png";
+	seTan00Path = L"MUSIC/se_tan00.wav";
+	seEnep00Path = L"MUSIC/se_enep00.wav";
+	seDamage00Path = L"MUSIC/se_damage00.wav";
+	seCardgetPath = L"MUSIC/se_cardget.wav";
+	seItem00Path = L"MUSIC/se_item00.wav";
+	seOk00Path = L"MUSIC/se_ok00.wav";
+	sePldead00Path = L"MUSIC/se_pldead00.wav";
+	sechangeitemPath = L"MUSIC/se_changeitem.wav";
 }

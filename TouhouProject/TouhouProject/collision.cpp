@@ -1,4 +1,5 @@
 #include "collision.h"
+#include "Sound.h"
 
 bool circleHit(float x1, float y1, float r1, float x2, float y2, float r2)
 {
@@ -11,17 +12,18 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets,
 	std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets, std::vector<PowerItem>& items,
 	int& score)
 {
-	for (auto& e : enemies)// 自机 vs 敌机
+	for (auto& e : enemies)// 鑷満 vs 鏁屾満
 	{
 		if (player.invincibleTimer > 0) continue;
 		if (circleHit(player.x, player.y, player.hitRadius,
 			e.x, e.y, e.hitRadius))
 		{
 			player.hp -= 1;
+			playSE(SND_DAMAGE,600);
 			player.invincibleTimer = 1.5f;
 		}
 	}
-	for (auto& b : enemyBullets)// 自机 vs 子弹
+	for (auto& b : enemyBullets)// 鑷満 vs 瀛愬脊
 	{
 		if (player.invincibleTimer > 0) continue;
 		if (circleHit(player.x, player.y, player.hitRadius,
@@ -29,10 +31,11 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets,
 		{
 			b.alive = false;
 			player.hp -= 1;
+			playSE(SND_DAMAGE,600);
 			player.invincibleTimer = 1.5f;
 		}
 	}
-	for (auto& b : bullets)  // 子弹 vs 敌机
+	for (auto& b : bullets)  // 瀛愬脊 vs 鏁屾満
 	{
 		for (auto& e : enemies)
 		{
@@ -43,6 +46,7 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets,
 				e.hp--;
 				if (e.hp <= 0)
 				{
+					playSE(SND_ENEMY,500);
 					score += e.scoreValue;
 					if (rand() % 100 < 80)
 					{

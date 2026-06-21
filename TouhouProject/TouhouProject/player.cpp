@@ -56,7 +56,7 @@ void drawplayerCollisions(player& player, std::vector<Bullet>& enemyBullets)
 	{
 		float inX = fabs(player.x - b.x);
 		float inY = fabs(player.y - b.y);
-		if (inX < 28 || inY < 33)
+		if (inX < 28 && inY < 33)
 		{
 			putimage(player.x - b.width / 2 + 1, player.y - b.high / 2 + 1, b.width, b.high, &imgEnemyBulletwhite, 82, 242, NOTSRCERASE);
 			putimage(player.x - b.width / 2 + 1, player.y - b.high / 2 + 1, b.width, b.high, &imgEnemyBullet, 82, 242, SRCINVERT);

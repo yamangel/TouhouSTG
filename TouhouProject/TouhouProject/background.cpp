@@ -88,25 +88,35 @@ void drawBackground(Background& bg)
 		}
 	}
 }
-void drawNumber(int num, int x, int y)
-{
-	const int digitW = 32;
-	const int digitH = 32;
-	const int srcY = 288;
 
+void drawFloat(float num, int x, int y)
+{
+	const int digitW = 32, digitH = 32, srcY = 288;
 	wchar_t str[16];
-	swprintf_s(str, 16, L"%d", num);
+	swprintf_s(str, 16, L"%.2f", num);  // 格式化成 "3.50"
 	int len = (int)wcslen(str);
 
 	for (int i = 0; i < len; i++)
 	{
-		int digit = str[i] - L'0';
-		int srcX = digit * digitW;
-
-		putimage(x + i * digitW, y, digitW, digitH,
-			&ascii_1280_white, srcX, srcY, NOTSRCERASE);
-		putimage(x + i * digitW, y, digitW, digitH,
-			&ascii_1280, srcX, srcY, SRCINVERT);
+		wchar_t ch = str[i];
+		if (ch == L'.')  // 小数点 → 在字体表里找 . 的位置画（第一行第11个，srcX=11*32=352）
+		{
+			putimage(x, y, digitW, digitH,
+				&ascii_1280_white, 352, srcY, NOTSRCERASE);
+			putimage(x, y, digitW, digitH,
+				&ascii_1280, 352, srcY, SRCINVERT);
+			x += digitW;
+		}
+		else  // 数字 0-9，和原来一样
+		{
+			int digit = ch - L'0';
+			int srcX = digit * digitW;
+			putimage(x, y, digitW, digitH,
+				&ascii_1280_white, srcX, srcY, NOTSRCERASE);
+			putimage(x, y, digitW, digitH,
+				&ascii_1280, srcX, srcY, SRCINVERT);
+			x += digitW;
+		}
 	}
 }
 
@@ -157,13 +167,27 @@ void drawText(const wchar_t* text, int x, int y)
 	}
 }
 
+void drawHp(player& player)
+{
+	int heartSrcX = 992, heartSrcY = 0;
+	int heartW = 35, heartH = 32;
+	for (int i = 0; i < player.hp; i++)
+	{
+		putimage(870 + i * (heartW + 4), 200, heartW, heartH,
+			&front00_white, heartSrcX, heartSrcY, NOTSRCERASE);
+		putimage(870 + i * (heartW + 4), 200, heartW, heartH,
+			&front00, heartSrcX, heartSrcY, SRCINVERT);
+	}
+}
+
 void drawUI(int score, player& player)
 {
 	putimage(832, 0, 448, 960, &front00_white, 64, 0, NOTSRCERASE);
 	putimage(832, 0, 448, 960, &front00, 64, 0, SRCINVERT);
 	drawText(L"Score:", 870, 100);
-	drawNumber(score, 1030, 100);
+	drawFloat(score, 1030, 100);
 	putimage(870, 150, 100, 30, &front00_white, 660, 110, NOTSRCERASE);
 	putimage(870, 150, 100, 30, &front00, 660, 110, SRCINVERT);
-	drawNumber(player.power, 1030, 150);
+	drawFloat(player.power, 1030, 150);
+	drawHp(player);
 }

@@ -20,7 +20,7 @@ void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,
 		}
 		else if (e.type == 1)//正弦波下降敌机
 		{
-			e.x += 200 * sin(e.y / 50) * dt;
+			e.x += 100 * sin(e.y / 50) * dt;
 			e.y += e.vy * dt;
 			if (e.y < 150)e.frame = e.frame % 4;
 			else

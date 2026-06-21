@@ -1,4 +1,5 @@
 #include "item.h"
+#include "Sound.h"
 void updateItems(std::vector<PowerItem>& items, player& player,float dt)
 {
 	for (PowerItem& item : items)
@@ -16,6 +17,7 @@ void updateItems(std::vector<PowerItem>& items, player& player,float dt)
 			if (inX < 20 && inY < 20)
 			{
 				item.alive = false;
+				playSE(SND_ITEM, 300);
 				player.power += item.value;
 				if (player.power > player.maxPower) player.power = player.maxPower;
 			}
