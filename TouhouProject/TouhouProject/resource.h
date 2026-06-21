@@ -1,6 +1,8 @@
 #pragma once
 #include <graphics.h>
 
+extern IMAGE ascii_1280;
+extern IMAGE ascii_1280_white;
 extern IMAGE title_bk00;
 extern IMAGE title_ch00;
 extern IMAGE title_ch00white;
@@ -8,6 +10,8 @@ extern IMAGE title_logo;
 extern IMAGE title_logowhite;
 extern IMAGE title_item00;
 extern IMAGE title_item00white;
+extern IMAGE front00;
+extern IMAGE front00_white;
 extern IMAGE cloud;
 extern IMAGE imgPlayer00;
 extern IMAGE imgPlayer00white;

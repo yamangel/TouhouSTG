@@ -1,6 +1,7 @@
 #include "resource.h"
 #include <graphics.h>
-
+IMAGE ascii_1280;
+IMAGE ascii_1280_white;
 IMAGE title_bk00;
 IMAGE title_ch00;
 IMAGE title_ch00white;
@@ -8,6 +9,8 @@ IMAGE title_logo;
 IMAGE title_logowhite;
 IMAGE title_item00;
 IMAGE title_item00white;
+IMAGE front00;
+IMAGE front00_white;
 IMAGE cloud;
 IMAGE imgPlayer00;
 IMAGE imgPlayer00white;
@@ -28,6 +31,8 @@ const wchar_t* stage01dblackPath;
 const wchar_t* ending_bg00Path;
 void loadResources()
 {
+	loadimage(&ascii_1280, _T("ANM/ascii/ascii_1280.png"));
+	loadimage(&ascii_1280_white, _T("ANM/ascii/ascii_1280_white.png"));
 	loadimage(&title_bk00, _T("ANM/title/title_bk00.png"));
 	loadimage(&title_ch00, _T("ANM/title/title_ch00.png"));
 	loadimage(&title_ch00white, _T("ANM/title/title_ch00white.png"));
@@ -35,6 +40,8 @@ void loadResources()
 	loadimage(&title_logowhite, _T("ANM/title/title_logowhite.png"));
 	loadimage(&title_item00, _T("ANM/title/title_item00.png"));
 	loadimage(&title_item00white, _T("ANM/title/title_item00white.png"));
+	loadimage(&front00, _T("ANM/front/front00.png"));
+	loadimage(&front00_white, _T("ANM/front/front00_white.png"));
 	loadimage(&cloud, _T("ANM/background/stage01/st01dwhite.png"));
 	loadimage(&imgPlayer00, _T("ANM/player/pl00/pl00.png"));
 	loadimage(&imgPlayer00white, _T("ANM/player/pl00/pl00white.png"));

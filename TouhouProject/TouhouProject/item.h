@@ -6,7 +6,7 @@ struct PowerItem {
 	float x, y;
 	float value;
 	bool alive = true;
-	float collectRadius = 40.0f;  // 吸收判定半径
+	float collectRadius = 30.0f;  // 吸收判定半径
 	PowerItem(int h,int w,float x,float y,float value):h(h),w(w),x(x),y(y),value(value){}
 };
 

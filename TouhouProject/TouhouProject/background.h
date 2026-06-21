@@ -1,5 +1,7 @@
 #pragma once
+#include "player.h"
 #include <graphics.h>
+#include <string>
 
 struct Background {
     IMAGE img;      // ±³¾°Í¼
@@ -12,3 +14,6 @@ struct Background {
 void initBackground(Background& bg, const wchar_t* path, float speed,int t);
 void updateBackground(Background& bg, float dt);
 void drawBackground( Background& bg);
+void drawUI(int score,player& player);
+void drawNumber(int num, int x, int y);
+void drawText(const wchar_t* text, int x, int y);

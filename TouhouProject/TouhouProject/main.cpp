@@ -23,7 +23,7 @@ void title_start()
 
 int main() {
 	srand((unsigned)time(0));//随机化
-	initgraph(1280, 960);//创建窗口640//记得要更新窗口大小ui布局
+	initgraph(1280, 960);//创建窗口
 	loadResources();//加载资源
 	bool ontext = false;
 	bool gameJustStarted = true;//判断是否需要重置游戏
@@ -40,7 +40,7 @@ int main() {
 
 	int shootCount = 1;//自机子弹数量
 	float baseAngle = 0, spreadAngle = 10;//自机多子弹偏移角度
-	player pl00(32, 48, 320.0f, 750.0f, 300.0f, 100.0f, 5);//自机00灵梦
+	player pl00(32, 48, 480.0f, 750.0f, 300.0f, 100.0f, 5);//自机00灵梦
 	float shootColdown = 0;//射击冷却
 	vector<Bullet> bullets;//自弹列表
 
@@ -91,10 +91,10 @@ int main() {
 			break;
 
 		case SCENE_GAME:
-			if (gameJustStarted) 
+			if (gameJustStarted)
 			{
 				pl00.hp = 5;
-				pl00.x = 320;
+				pl00.x = 416;
 				pl00.y = 750;
 				pl00.invincibleTimer = 0;
 				bullets.clear();
@@ -115,7 +115,7 @@ int main() {
 			updateBullets(bullets, dt);//更新自弹
 			updateBullets(enemyBullets, dt);//更新敌弹
 			updateEnemy(enemies, enemyBullets, pl00.x, pl00.y, dt);//更新敌人状态
-			updateItems(items, pl00,dt);//更新掉落物
+			updateItems(items, pl00, dt);//更新掉落物
 
 			shootColdown -= dt;//实现有冷却的基础自动射击
 			if (shootColdown <= 0)
@@ -124,16 +124,17 @@ int main() {
 				shootColdown = 0.18f;
 			}
 
-			checkCollisions(pl00, bullets, enemies, enemyBullets,items,score);//检测碰撞
+			checkCollisions(pl00, bullets, enemies, enemyBullets, items, score);//检测碰撞
 
 			drawBackground(stage01a);//绘制背景
 			//drawBackground(stage01d);//绘制云
+			drawUI(score,pl00);//绘制UI
 			drawBullets(bullets);//绘制自弹
 			drawBullets(enemyBullets);//绘制敌弹
 			drawEnemy(enemies);//绘制敌人
 			drawItems(items);//绘制掉落物
 			drawPlayer(pl00);//绘制自机
-			drawplayerCollisions(pl00,enemyBullets);//绘制自机碰撞箱
+			drawplayerCollisions(pl00, enemyBullets);//绘制自机碰撞箱
 			if (GetAsyncKeyState('X') & 0x8000)
 			{
 				if (pl00.power >= 1.0f)
@@ -149,7 +150,7 @@ int main() {
 					pl00.power -= 1.0f;
 				}
 			}
-			if (pl00.hp <= 0) 
+			if (pl00.hp <= 0)
 			{
 				currentScene = SCENE_GAMEOVER;
 				gameJustStarted = true;
@@ -160,6 +161,7 @@ int main() {
 			lastTime = clock();//重置时间基准
 			updateBackground(ending_bk00, dt);
 			drawBackground(ending_bk00);
+			outtextxy(640, 480, _T("GAMEOVER"));
 			if (GetAsyncKeyState(VK_SPACE) & 0x8000) currentScene = SCENE_TITLE;
 			break;
 		}

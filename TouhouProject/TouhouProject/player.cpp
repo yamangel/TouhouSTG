@@ -7,13 +7,13 @@ void updatePlayer(player& p, float dt) {
 	float speed = (GetAsyncKeyState(VK_SHIFT) & 0x8000) ? p.slowspeed : p.speed;
 	bool left = GetAsyncKeyState(VK_LEFT) & 0x8000;
 	bool right = GetAsyncKeyState(VK_RIGHT) & 0x8000;
-	if (left && !right)//Ïò×óÒÆ¶¯
+	if (left && !right)//å‘å·¦ç§»åŠ¨
 	{
 		p.x -= speed * dt;
 		if (p.facing != 1) p.frame = 0;
 		p.facing = 1;
 	}
-	else if (right && !left)//ÏòÓÒÒÆ¶¯
+	else if (right && !left)//å‘å³ç§»åŠ¨
 	{
 		p.x += speed * dt;
 		if (p.facing != 2) p.frame = 0;
@@ -25,8 +25,8 @@ void updatePlayer(player& p, float dt) {
 		p.facing = 0;
 	}
 
-	if (p.invincibleTimer > 0) p.invincibleTimer -= dt;//ÎÞµÐÊ±¼ä
-	p.frameTimer += dt;//¶¯»­Ö¡ÇÐ»»
+	if (p.invincibleTimer > 0) p.invincibleTimer -= dt;//æ— æ•Œæ—¶é—´
+	p.frameTimer += dt;//åŠ¨ç”»å¸§åˆ‡æ¢
 	if (p.frameTimer > 0.1f)
 	{
 		p.frame = (p.frame + 1) % 8;
@@ -36,8 +36,8 @@ void updatePlayer(player& p, float dt) {
 	if (GetAsyncKeyState(VK_UP) & 0x8000) p.y -= speed * dt;
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000) p.y += speed * dt;
 
-	if (p.x - p.width / 2.0f < 0)   p.x = p.width / 2.0f;//±ß½ç¼ì²â
-	if (p.x + p.width / 2.0f > 640) p.x = 640 - p.width / 2.0f;
+	if (p.x - p.width / 2.0f < 0)   p.x = p.width / 2.0f;//è¾¹ç•Œæ£€æµ‹
+	if (p.x + p.width / 2.0f > 832) p.x = 832 - p.width / 2.0f;
 	if (p.y - p.high / 2.0f < 0)   p.y = p.high / 2.0f;
 	if (p.y + p.high / 2.0f > 960) p.y = 960 - p.high / 2.0f;
 }

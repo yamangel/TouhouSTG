@@ -13,7 +13,7 @@ void updateItems(std::vector<PowerItem>& items, player& player,float dt)
 				item.x -= (item.x - player.x) / inX;
 				item.y -= (item.y - player.y) / inY;
 			}
-			if (inX < 10 || inY < 10)
+			if (inX < 20 && inY < 20)
 			{
 				item.alive = false;
 				player.power += item.value;
@@ -21,7 +21,7 @@ void updateItems(std::vector<PowerItem>& items, player& player,float dt)
 			}
 		}
 
-		if (item.x>672 || item.y > 990)//Àë¿ª´°¿ÚÅĞ¶¨ËÀÍö
+		if (item.x>864|| item.y > 990)//ç¦»å¼€çª—å£åˆ¤å®šæ­»äº¡
 		{
 			item.alive = false;
 		}

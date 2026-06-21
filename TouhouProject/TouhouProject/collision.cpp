@@ -46,7 +46,7 @@ void checkCollisions(player& player, std::vector<Bullet>& bullets,
 					score += e.scoreValue;
 					if (rand() % 100 < 80)
 					{
-						float drop = (rand() % 3 + 1) * 0.1f;  // 0.1, 0.2, 0.3
+						float drop = rand() % 3 * 0.1;
 						items.push_back(PowerItem(12, 12, e.x, e.y, drop));
 					}
 				}
