@@ -15,12 +15,13 @@ struct BulletPattern //弹幕类型
 class enemy {
 public:
 	enemy(int width, int high, float x, float y,
-		float vx, float vy, int type, int hp, BulletPattern pattern, int s) : width(width), high(high), x(x), y(y), vx(vx), vy(vy), type(type), hp(hp), pattern(pattern), scoreValue(s) {
+		float vx, float vy, int type,int move, int hp, BulletPattern pattern, int s) : width(width), high(high), x(x), y(y), vx(vx), vy(vy), type(type), hp(hp), pattern(pattern),movePattern(move), scoreValue(s) {
 	}
 	int width, high;//图像大小
 	float x, y;//位置
 	float vx, vy;//速度
-	int type;//敌人类型，决定外观和行为//0为基础敌人，1为特殊敌人
+	int type;//敌人类型
+	int movePattern; //决定行为
 	int hp;
 	BulletPattern pattern;//射击方式
 	int scoreValue;//得分

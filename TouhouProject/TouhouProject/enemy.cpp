@@ -13,12 +13,12 @@ void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,
 			e.frameTimer -= 0.1f;
 		}
 
-		if (e.type == 0)//直线向下敌机
+		if (e.movePattern == 0)//直线向下敌机
 		{
 			e.y += e.vy * dt;
 			e.frame = e.frame % 4;
 		}
-		else if (e.type == 1)//正弦波下降敌机
+		else if (e.movePattern == 1)//正弦波下降敌机
 		{
 			e.x += 100 * sin(e.y / 50) * dt;
 			e.y += e.vy * dt;

@@ -12,6 +12,10 @@ void updateBullets(std::vector<Bullet>& bullets, float dt)
 		{
 			b.alive = false;
 		}
+		if (b.x < -36 || b.x>832 || b.y > 990)//离开窗口判定死亡（游戏区832）
+		{
+			b.alive = false;
+		}
 	}
 	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [](Bullet& b) { return !b.alive; }), bullets.end());
 }
