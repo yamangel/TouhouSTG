@@ -37,15 +37,43 @@ void updateEnemy(std::vector<enemy>& enemies, std::vector<Bullet>& enemyBullets,
 		}
 		else if (e.movePattern == 2)//BOSS
 		{
-			if (e.y < 200) e.y += e.vy * dt;
-			else
-			{
-				if (e.phaseBase == 0) e.phaseBase = (float)clock();
-				float prevX = e.x;
-				e.x = 416 + 220 * sin(((float)clock() - e.phaseBase) / 2000);
-				if (e.x > prevX + 1) e.bossDir = 1;
-				else if (e.x < prevX - 1) e.bossDir = 2;
-				else e.bossDir = 0;
+			// µÚ¶þ½×¶Î£ºHP <= 100£¬¾²Ö¹+Ðý×ªµ¯
+			if (e.hp <= 100) {
+				e.x = 416; e.y = 200; e.bossDir = 0;
+				e.pattern.patternType = 3;
+				e.pattern.bulletCount = 1;
+				e.pattern.speed = 100;
+				e.pattern.interval = 0.01f;
+				e.pattern.spreadAngle = 100;
+				e.pattern.bulletType = 2;
+				e.pattern.bulletW = 10;
+				e.pattern.bulletH = 14;
+			}
+			else {
+				// µÚÒ»½×¶Î£ºÏÂ½µ+ÅÇ»²£¬Ã¿10Ãë»»µ¯Ä»
+				if (e.y < 200) e.y += e.vy * dt;
+				else {
+					if (e.phaseBase == 0) e.phaseBase = (float)clock();
+					float prevX = e.x;
+					e.x = 416 + 120 * sin(((float)clock() - e.phaseBase) / 2000);
+					if (e.x > prevX + 1) e.bossDir = 1;
+					else if (e.x < prevX - 1) e.bossDir = 2;
+				}
+
+				e.bossPhaseTimer += dt;
+				int cycle = ((int)(e.bossPhaseTimer / 10.0f)) % 3;
+				if (cycle == 0) {
+					e.pattern.patternType = 0; e.pattern.bulletCount = 5;
+					e.pattern.speed = 180; e.pattern.interval = 1.0f;
+				}
+				else if (cycle == 1) {
+					e.pattern.patternType = 1; e.pattern.bulletCount = 10;
+					e.pattern.speed = 150; e.pattern.interval = 1.0f; e.pattern.spreadAngle = 15;
+				}
+				else {
+					e.pattern.patternType = 2; e.pattern.bulletCount = 24;
+					e.pattern.speed = 150; e.pattern.interval = 0.5f; e.pattern.spreadAngle = 15;
+				}
 			}
 			e.frame = (e.bossDir == 0) ? e.frame % 6 : e.frame % 5;
 		}

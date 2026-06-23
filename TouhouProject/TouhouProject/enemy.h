@@ -33,6 +33,7 @@ public:
 	int bossDir = 0;
 	float phaseBase = 0;
 	float rotateAngle = 0;
+	float bossPhaseTimer = 0;
 };
 
 
