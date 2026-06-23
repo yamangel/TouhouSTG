@@ -3,6 +3,7 @@
 
 extern IMAGE ascii_1280;
 extern IMAGE ascii_1280_white;
+
 extern IMAGE title_bk00;
 extern IMAGE title_ch00;
 extern IMAGE title_ch00white;
@@ -10,19 +11,25 @@ extern IMAGE title_logo;
 extern IMAGE title_logowhite;
 extern IMAGE title_item00;
 extern IMAGE title_item00white;
+
 extern IMAGE front00;
 extern IMAGE front00_white;
 extern IMAGE cloud;
+
 extern IMAGE imgPlayer00;
 extern IMAGE imgPlayer00white;
 extern IMAGE imgBullet00;
 extern IMAGE imgBullet00white;
+
 extern IMAGE imgEnemy00;
 extern IMAGE imgEnemy00white;
 extern IMAGE imgEnemy00Flipped;
 extern IMAGE imgEnemy00Flippedwhite;
 extern IMAGE imgEnemyBullet;
 extern IMAGE imgEnemyBulletwhite;
+extern IMAGE imgEnm5;
+extern IMAGE imgEnm5_white;
+
 extern IMAGE item_;
 extern IMAGE item_white;
 extern  const wchar_t* stage01aPath;

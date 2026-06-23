@@ -1,15 +1,15 @@
 #pragma once
 #include "bullet.h"
 
-struct BulletPattern //弹幕类型
+struct BulletPattern
 {
-	int patternType;//0为单发，1为扇形，2为圆形
-	int bulletCount;//每一波弹幕数量
-	float speed;//速度
-	float interval;//两波之间的间隔
+	int patternType;
+	int bulletCount;
+	float speed;
+	float interval;
 	float spreadAngle;
-	int bulletType;//子弹贴图
-	int bulletW, bulletH;//贴图尺寸
+	int bulletType;
+	int bulletW, bulletH;
 };
 
 class enemy {
@@ -17,19 +17,22 @@ public:
 	enemy(int width, int high, float x, float y,
 		float vx, float vy, int type,int move, int hp, BulletPattern pattern, int s) : width(width), high(high), x(x), y(y), vx(vx), vy(vy), type(type), hp(hp), pattern(pattern),movePattern(move), scoreValue(s) {
 	}
-	int width, high;//图像大小
-	float x, y;//位置
-	float vx, vy;//速度
-	int type;//敌人类型
-	int movePattern; //决定行为
+	int width, high;
+	float x, y;
+	float vx, vy;
+	int type;
+	int movePattern;
 	int hp;
-	BulletPattern pattern;//射击方式
-	int scoreValue;//得分
-	int frame = 0;//动画帧
-	float frameTimer = 0.0f;//动画帧
-	float shootTimer = 0;// 射击冷却计时
-	float hitRadius = 16.0f;//碰撞箱半径
+	BulletPattern pattern;
+	int scoreValue;
+	int frame = 0;
+	float frameTimer = 0.0f;
+	float shootTimer = 0;
+	float hitRadius = 16.0f;
 	bool alive = true;
+	int bossDir = 0;
+	float phaseBase = 0;
+	float rotateAngle = 0;
 };
 
 

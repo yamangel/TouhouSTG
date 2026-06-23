@@ -6,7 +6,7 @@
 #include "collision.h"
 #include "background.h"
 #include "item.h"
-//#include "Sound.h"
+#include "Sound.h"
 #include <time.h>
 #include <Windows.h>
 using namespace std;

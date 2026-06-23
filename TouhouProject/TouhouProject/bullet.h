@@ -4,7 +4,7 @@
 class Bullet {
 public:
 	Bullet(int w, int h, float x, float y,
-		float vx, float vy, int type) :width(w), high(h), x(x), y(y), vx(vx), vy(vy), type(type) {}
+		float vx, float vy, int type) :width(w), high(h), x(x), y(y), vx(vx), vy(vy), type(type) { if (type == 2) hitRadius = 5.0f; }
 	bool alive = true;
 	float x, y;
 	float vx, vy;
