@@ -23,13 +23,13 @@ void title_start()
 }
 
 int main() {
-	srand((unsigned)time(0));//随机化
+	srand((unsigned)time(0));//随机数
 	initgraph(1280, 960);//创建窗口
 	loadResources();//加载资源
 	initSounds();
 	bool ontext = false;
-	bool gameJustStarted = true;//判断是否需要重置游戏
-	int score = 0;//得分
+	bool gameJustStarted = true;//判断是否需要重开游戏
+	int score = 0; bool victory = false; bool bossWasHere = false;//得分
 	static int Select = 0;
 	float soundColdown = 0;
 	enum GameScene { SCENE_TITLE, SCENE_GAME, SCENE_GAMEOVER };
@@ -37,20 +37,18 @@ int main() {
 
 	Background stage01a;//背景
 	initBackground(stage01a, stage01aPath, 80, 0);//加载背景
-	//Background stage01d;//云
-	//initBackground(stage01d, stage01dblackPath, 100, 1);//加载云
 	Background ending_bk00;//end
 	initBackground(ending_bk00, ending_bg00Path, 300, -1);//加载end
 
 	int shootCount = 1;//自机子弹数量
-	float baseAngle = 0, spreadAngle = 10;//自机多子弹偏移角度
-	player pl00(32, 48, 480.0f, 750.0f, 300.0f, 100.0f, 7);//自机00灵梦
+	float baseAngle = 0, spreadAngle = 10;//自机子弹偏移角度
+	player pl00(32, 48, 480.0f, 750.0f, 300.0f, 100.0f, 7);//player00灵梦
 	float shootColdown = 0;//射击冷却
-	vector<Bullet> bullets;//自弹列表
+	vector<Bullet> bullets;//�弹列�
 
 	vector<Bullet> enemyBullets;//敌弹列表
 	vector<enemy> enemies;//敌人列表
-	EnemyManager enemyManager;//出怪顺序表
+	EnemyManager enemyManager;//出怪顺序
 	vector<PowerItem> items;//掉落物列表
 	BeginBatchDraw();
 	enemyManager.init();
@@ -123,37 +121,39 @@ int main() {
 			lastTime = clock();//重置时间基准
 			enemyManager.update(enemies, dt);//更新出怪
 			updateBackground(stage01a, dt);//更新背景
-			//updateBackground(stage01d, dt);//更新云
-			updatePlayer(pl00, dt);//更新自机
-			updateBullets(bullets, dt);//更新自弹
+			//updateBackground(stage01d, dt);//更新�
+			updatePlayer(pl00, dt);//更新��
+			updateBullets(bullets, dt);//更新��
 			updateBullets(enemyBullets, dt);//更新敌弹
-			updateEnemy(enemies, enemyBullets, pl00.x, pl00.y, dt);//更新敌人状态
-			updateItems(items, pl00, dt);//更新掉落物
+			updateEnemy(enemies, enemyBullets, pl00.x, pl00.y, dt);//更新敌人状�
+			updateItems(items, pl00, dt);//更新掉落�
 
-			shootColdown -= dt;//实现有冷却的基础自动射击
+			shootColdown -= dt;//实现有冷却的基��动射�
 			if (shootColdown <= 0)
 			{
-				shoot(bullets, 12, 55, pl00.x, pl00.y - pl00.high / 2.0f, shootCount, baseAngle, spreadAngle, 350.0f, 0);//发射基础子弹
+				shoot(bullets, 12, 55, pl00.x, pl00.y - pl00.high / 2.0f, shootCount, baseAngle, spreadAngle, 350.0f, 0);//发射基�子弹
 				if (soundColdown <= 0)
 				{
 					playSE(SND_SHOOT, 200);
-					soundColdown = 0.5f;  // 每 0.5 秒才播一次射击音
+					soundColdown = 0.5f;  // � 0.5 秒才��次射击音
 				}
 				shootColdown = 0.18f;
 			}
 			soundColdown -= dt;
 
-			checkCollisions(pl00, bullets, enemies, enemyBullets, items, score);//检测碰撞
+			checkCollisions(pl00, bullets, enemies, enemyBullets, items, score);//�测�撞
+				// Boss defeat
+				{ bool ba = false; for (auto& e : enemies) { if (e.type == 2) ba = true; } if (bossWasHere && !ba) { victory = true; currentScene = SCENE_GAMEOVER; gameJustStarted = true; } if (ba) bossWasHere = true; }
 
 			drawBackground(stage01a);//绘制背景
-			//drawBackground(stage01d);//绘制云
+			//drawBackground(stage01d);//绘制�
 			drawUI(score,pl00);//绘制UI
-			drawBullets(bullets);//绘制自弹
+			drawBullets(bullets);//绘制��
 			drawBullets(enemyBullets);//绘制敌弹
 			drawEnemy(enemies);//绘制敌人
-			drawItems(items);//绘制掉落物
-			drawPlayer(pl00);//绘制自机
-			drawplayerCollisions(pl00, enemyBullets);//绘制自机碰撞箱
+			drawItems(items);//绘制掉落�
+			drawPlayer(pl00);//绘制��
+			drawplayerCollisions(pl00, enemyBullets);//绘制�机�撞�
 			if (GetAsyncKeyState('X') & 0x8000)
 			{
 				if ((pl00.power >= 1.0f) &&( pl00.invincibleTimer<=0))
@@ -183,11 +183,11 @@ int main() {
 			lastTime = clock();//重置时间基准
 			updateBackground(ending_bk00, dt);
 			drawBackground(ending_bk00);
-			outtextxy(640, 480, _T("GAMEOVER"));
-			if (GetAsyncKeyState(VK_SPACE) & 0x8000) currentScene = SCENE_TITLE;
+			outtextxy(640, 480, victory ? _T("VICTORY") : _T("GAMEOVER"));
+			if (GetAsyncKeyState(VK_SPACE) & 0x8000) { victory = false; currentScene = SCENE_TITLE; }
 			break;
 		}
-		FlushBatchDraw();//刷新绘制，防闪屏
+		FlushBatchDraw();//刷新绘制，防��
 		int elapsed = (int)((clock() - now) * 1000 / CLOCKS_PER_SEC);
 		if (elapsed < 16)Sleep(16 - elapsed);//控制帧率稳定
 

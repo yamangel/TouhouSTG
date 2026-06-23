@@ -13,20 +13,20 @@ void EnemyManager::init()
 	spawnList.push_back(SpawnEntry(5.0f, 3, 0, 0, 650.0f, -30.0f, 0, 50.0f, 1.0f, 3, 0, p1, 10));
 	spawnList.push_back(SpawnEntry(9.0f, 3, 0, 0, 250.0f, -30.0f, 0, 50.0f, 1.0f, 3, 0, p1, 10));
 	spawnList.push_back(SpawnEntry(13.0f, 3, 0, 0, 500.0f, -30.0f, 0, 50.0f, 1.0f, 3, 0, p1, 10));
-
+	 
 	spawnList.push_back(SpawnEntry(21.0f, 5, 1, 1, 200.0f, -30.0f, 0, 80.0f, 1.5f, 2, 0, p2, 5));
 	spawnList.push_back(SpawnEntry(24.0f, 5, 1, 1, 600.0f, -30.0f, 0, 80.0f, 1.5f, 2, 0, p2, 5));
-
+	 
 	spawnList.push_back(SpawnEntry(40.0f, 2, 0, 0, 160.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
 	spawnList.push_back(SpawnEntry(41.0f, 2, 0, 0, 160.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
 	spawnList.push_back(SpawnEntry(42.0f, 2, 0, 0, 160.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
 	spawnList.push_back(SpawnEntry(43.0f, 2, 0, 0, 660.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
 	spawnList.push_back(SpawnEntry(44.0f, 2, 0, 0, 660.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
 	spawnList.push_back(SpawnEntry(45.0f, 2, 0, 0, 660.0f, -30.0f, 0, 60.0f, 0.0f, 3, 60, p1, 10));
-
+	 
 	spawnList.push_back(SpawnEntry(46.0f, 3, 0, 3, 400.0f, -30.0f, 0, 40.0f, 1.0f, 5, 150, p3, 30));
 
-	spawnList.push_back(SpawnEntry(60.0f, 1, 2, 2, 416.0f, -50.0f, 0, 200.0f, 0.0f, 150, 0, p1, 500));
+	spawnList.push_back(SpawnEntry(65.0f, 1, 2, 2, 416.0f, -50.0f, 0, 200.0f, 0.0f, 300, 0, p1, 500));
 }
 void EnemyManager::update(std::vector<enemy>& enemies, float dt) {
 	timer += dt;
